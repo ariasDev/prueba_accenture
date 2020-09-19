@@ -1,0 +1,17 @@
+.registry-container{
+
+}
+
+
+.title-container{
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FE5D26;
+}
+
+.title{
+    font-family: 'Lobster', cursive;
+    color: white;
+}

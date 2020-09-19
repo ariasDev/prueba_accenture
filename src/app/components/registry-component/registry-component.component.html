@@ -1,0 +1,41 @@
+<div class="registry-container">
+    <div class="title-container">
+        <h1 class="title">Registro de Clientes</h1>
+    </div>
+    <div class="form-container">
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+
+            <div>
+              <label for="identification">
+                identificación
+              </label>
+              <input id="identification" type="text" formControlName="identification">
+            </div>
+          
+            <div>
+              <label for="firstname">
+                Primer Nombre
+              </label>
+              <input id="firstname" type="text" formControlName="firstname">
+            </div>
+
+            <div>
+                <label for="lastname">
+                  Apellido
+                </label>
+                <input id="lastname" type="text" formControlName="lastname">
+            </div>
+
+            <div>
+                <label for="birthdate">
+                  Fecha de Nacimiento
+                </label>
+                <input id="birthdate" type="date" formControlName="birthdate">
+            </div>
+          
+          
+            <button class="button" type="submit">Registrarme</button>
+          
+          </form>
+    </div>
+</div>
