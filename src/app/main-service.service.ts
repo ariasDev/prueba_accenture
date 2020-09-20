@@ -13,7 +13,6 @@ export class MainServiceService {
     return this.http.get(`${this.URL_CLIENTES}`);
   }
 
-  
   public registerNewCustomer(custemerData) {
     return this.http.post(this.URL_CLIENTES, custemerData)
   }

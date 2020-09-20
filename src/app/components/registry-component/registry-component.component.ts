@@ -15,7 +15,10 @@ export class RegistryComponentComponent implements OnInit, OnDestroy {
   suscribeGet: Subscription;
   suscribePost: Subscription;
 
-  constructor(private formBuilder: FormBuilder, private mainService: MainServiceService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private mainService: MainServiceService
+  ) {
     this.checkoutForm = this.formBuilder.group({
       birthdate: new FormControl('', [Validators.required, ageValidator(18)]),
       firstname: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -37,7 +40,6 @@ export class RegistryComponentComponent implements OnInit, OnDestroy {
           } else {
             alert('Este usuario ya se encuentra registrado')
           }
-
         })
         this.checkoutForm.reset();
       } else {
@@ -49,8 +51,7 @@ export class RegistryComponentComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   get identification() { return this.checkoutForm.get('identification') }
   get firstname() { return this.checkoutForm.get('firstname') }
