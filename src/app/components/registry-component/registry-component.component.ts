@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import {MainServiceService} from '../../main-service.service'
+import { Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-registry-component',
   templateUrl: './registry-component.component.html',
   styleUrls: ['./registry-component.component.css']
 })
-export class RegistryComponentComponent implements OnInit {
+export class RegistryComponentComponent implements OnInit, OnDestroy {
 
   checkoutForm;
   body;
+  suscribeGet: Subscription;
+  suscribePost: Subscription;
 
   constructor(private formBuilder: FormBuilder, private mainService:MainServiceService) {
     this.checkoutForm = this.formBuilder.group({
@@ -23,17 +26,16 @@ export class RegistryComponentComponent implements OnInit {
   }
 
     onSubmit(userData) {
-      console.log(userData);
       if(userData.birthdate && userData.firstname &&userData.lastname &&userData.identification){
         if(this.checkoutForm.valid){
-          this.mainService.getAllClients().subscribe(response=>{
+          this.suscribeGet = this.mainService.getAllClients().subscribe(response=>{
               this.body=response;
               let responseString = JSON.stringify(response)
               if(responseString.indexOf(`identification":"${userData.identification}`) === -1){
                 let yearBirthdateUser = userData.birthdate.split('-')[0]
                 let currentYear = new Date().getFullYear()
                 if(currentYear - yearBirthdateUser > 18){
-                  this.mainService.registerNewCustomer(userData).subscribe(response => {
+                  this.suscribePost = this.mainService.registerNewCustomer(userData).subscribe(response => {
                     alert('Usurio Registrado con exito')
                   })
                 }
@@ -62,5 +64,10 @@ export class RegistryComponentComponent implements OnInit {
   get firstname() {return this.checkoutForm.get('firstname')}
   get lastname() {return this.checkoutForm.get('lastname')}
   get birthdate() {return this.checkoutForm.get('birthdate')}
+
+  ngOnDestroy(){
+    this.suscribeGet.unsubscribe()
+    this.suscribePost.unsubscribe()
+  }
 
 }
