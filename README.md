@@ -10,7 +10,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 1. Clonar el Repositorio con el siguiente Link `https://github.com/ariasDev/prueba_accenture.git`
 2. Dirigirse a la raiz de la carpeta del repositorio
-3. Abrir una consola
+3. Abrir una consola y dirigirse a la ruta raiz donde se encuentran los archivos del proyecto
 4. Instalar las dependencias, ejecutando el comando `npm install`
 4. Ejecutar el proyecto, ejecutando el comando `ng serve -o`
 
