@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {MainServiceService} from '../../main-service.service'
 import { Subscription} from 'rxjs';
+import { ageValidator } from '../../utils/customValidators'
 
 @Component({
   selector: 'app-registry-component',
@@ -10,26 +11,24 @@ import { Subscription} from 'rxjs';
 })
 export class RegistryComponentComponent implements OnInit, OnDestroy {
 
-  checkoutForm;
-  body;
+  checkoutForm: FormGroup;
   suscribeGet: Subscription;
   suscribePost: Subscription;
 
   constructor(private formBuilder: FormBuilder, private mainService:MainServiceService) {
     this.checkoutForm = this.formBuilder.group({
-      birthdate: '',
-      firstname: new FormControl('', [Validators.required,Validators.minLength(4)]),
-      lastname: new FormControl('', [Validators.required,Validators.minLength(4)]),
-      identification: new FormControl('', [Validators.required,Validators.minLength(10),])
+      birthdate: new FormControl('', [Validators.required, ageValidator(18)]),
+      firstname: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      lastname: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      identification: new FormControl('', [Validators.required, Validators.minLength(10),])
     });
 
   }
 
     onSubmit(userData) {
-      if(userData.birthdate && userData.firstname &&userData.lastname &&userData.identification){
+      if(userData.birthdate && userData.firstname && userData.lastname && userData.identification){
         if(this.checkoutForm.valid){
           this.suscribeGet = this.mainService.getAllClients().subscribe(response=>{
-              this.body=response;
               let responseString = JSON.stringify(response)
               if(responseString.indexOf(`identification":"${userData.identification}`) === -1){
                 let yearBirthdateUser = userData.birthdate.split('-')[0]
