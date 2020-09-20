@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-# Intrucciones para arrancar el proyecto
+# Instrucciones para arrancar el proyecto
 
 1. Clonar el Repositorio con el siguiente Link `https://github.com/ariasDev/prueba_accenture.git`
 2. Dirigirse a la raiz de la carpeta del repositorio
