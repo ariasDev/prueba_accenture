@@ -9,6 +9,11 @@
       </p>
       <input id="identification" type="number" formControlName="identification" class="input"
         placeholder="Ingresa el numero de tu identificación">
+      <div class="alert-danger" *ngIf="identification.invalid && identification.dirty">
+        <div class="container-error-message" *ngIf="identification.errors.required">
+          Tu identificación es requerida
+        </div>
+      </div>
     </div>
 
     <div class="form-row">
