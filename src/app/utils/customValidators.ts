@@ -4,7 +4,11 @@ import * as moment from 'moment'
 export function ageValidator(limit: number) {
     return (control: AbstractControl) => {
         const age = moment(control.value)
-        const difference = age.diff(moment(), 'years') 
-        return difference > limit ? null : {"isMinor": true}
+        const difference = moment().diff(age, 'years') 
+        console.log('diferencia', difference); 
+        console.log(difference >= limit);
+        
+        return difference >= limit ? null : {"isMinor": true}
+
     }
 }

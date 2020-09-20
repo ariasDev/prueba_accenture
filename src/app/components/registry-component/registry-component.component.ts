@@ -29,18 +29,11 @@ export class RegistryComponentComponent implements OnInit, OnDestroy {
       if(userData.birthdate && userData.firstname && userData.lastname && userData.identification){
         if(this.checkoutForm.valid){
           this.suscribeGet = this.mainService.getAllClients().subscribe(response=>{
-              let responseString = JSON.stringify(response)
+              const responseString = JSON.stringify(response)
               if(responseString.indexOf(`identification":"${userData.identification}`) === -1){
-                let yearBirthdateUser = userData.birthdate.split('-')[0]
-                let currentYear = new Date().getFullYear()
-                if(currentYear - yearBirthdateUser > 18){
-                  this.suscribePost = this.mainService.registerNewCustomer(userData).subscribe(response => {
-                    alert('Usurio Registrado con exito')
-                  })
-                }
-                else{
-                  alert('Para registrarte debes tener minimo 18 años')
-                }
+                this.suscribePost = this.mainService.registerNewCustomer(userData).subscribe(response => {
+                  alert('Usurio Registrado con exito')
+                })
               } else {
                 alert('Este usuario ya se encuentra registrado')
               }

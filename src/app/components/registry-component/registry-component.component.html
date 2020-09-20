@@ -54,8 +54,8 @@
         <div class="container-error-message" *ngIf="birthdate.errors.required">
           Tu primer apellido es requerido
         </div>
-        <div class="container-error-message" *ngIf="birthdate.errors.minlength">
-          Tu primer apellido debe ser de minimo 5 caracteres
+        <div class="container-error-message" *ngIf="birthdate.errors.isMinor">
+          Para registrarte debes ser mayor de 18 años
         </div>
       </div>
     </div>
