@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {MainServiceService} from '../../main-service.service'
 
 @Component({
   selector: 'app-registry-component',
@@ -9,31 +10,57 @@ import { FormBuilder } from '@angular/forms';
 export class RegistryComponentComponent implements OnInit {
 
   checkoutForm;
-  URL_BASE;
+  body;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.URL_BASE='https://testbankapi.firebaseio.com/clients.json'
+  constructor(private formBuilder: FormBuilder, private mainService:MainServiceService) {
     this.checkoutForm = this.formBuilder.group({
       birthdate: '',
-      firstname: '',
-      lastname: '',
-      identification: ''
+      firstname: new FormControl('', [Validators.required,Validators.minLength(4)]),
+      lastname: new FormControl('', [Validators.required,Validators.minLength(4)]),
+      identification: new FormControl('', [Validators.required,Validators.minLength(10),])
     });
 
   }
 
-  onSubmit(userData) {
-    if(userData.birthdate && userData.firstname &&userData.lastname &&userData.identification){
+    onSubmit(userData) {
+      console.log(userData);
+      if(userData.birthdate && userData.firstname &&userData.lastname &&userData.identification){
+        if(this.checkoutForm.valid){
+          this.mainService.getAllClients().subscribe(response=>{
+              this.body=response;
+              let responseString = JSON.stringify(response)
+              if(responseString.indexOf(`identification":"${userData.identification}`) === -1){
+                let yearBirthdateUser = userData.birthdate.split('-')[0]
+                let currentYear = new Date().getFullYear()
+                if(currentYear - yearBirthdateUser > 18){
+                  this.mainService.registerNewCustomer(userData).subscribe(response => {
+                    alert('Usurio Registrado con exito')
+                  })
+                }
+                else{
+                  alert('Para registrarte debes tener minimo 18 años')
+                }
+              } else {
+                alert('Este usuario ya se encuentra registrado')
+              }
+              
+          })
+            this.checkoutForm.reset();
+        } else {
+          alert('Algunos Datos que diligenciaste no son validos')
+        }
 
-    } else {
-      alert('Todos los campos deben estar Diligenciados')
+      } else {
+        alert('Todos los campos deben estar Diligenciados')
+      }
     }
-
-    this.checkoutForm.reset();
-    console.warn('user registered: ', userData);
-  }
 
   ngOnInit(): void {
   }
+
+  get identification() {return this.checkoutForm.get('identification')}
+  get firstname() {return this.checkoutForm.get('firstname')}
+  get lastname() {return this.checkoutForm.get('lastname')}
+  get birthdate() {return this.checkoutForm.get('birthdate')}
 
 }

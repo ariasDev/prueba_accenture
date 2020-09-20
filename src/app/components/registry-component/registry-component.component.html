@@ -2,40 +2,56 @@
     <div class="title-container">
         <h1 class="title">Registro de Clientes</h1>
     </div>
-    <div class="form-container">
-        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)" class="form">
 
-            <div>
-              <label for="identification">
-                identificación
-              </label>
-              <input id="identification" type="text" formControlName="identification">
+            <div class="form-row">
+              <p  class="label">
+                identificación *
+              </p>
+              <input id="identification" type="number" formControlName="identification" class="input" placeholder="Ingresa el numero de tu identificación">
             </div>
           
-            <div>
-              <label for="firstname">
-                Primer Nombre
-              </label>
-              <input id="firstname" type="text" formControlName="firstname">
+            <div class="form-row">
+              <p for="firstname" class="label">
+                Primer Nombre *
+              </p>
+              <input id="firstname" type="text" formControlName="firstname" class="input" placeholder="Ingresa tu primer nombre">
+
+              <div class="alert-danger" *ngIf="firstname.invalid && firstname.dirty ">
+                <div class="container-error-message" *ngIf="firstname.errors.required">
+                  Tu primer nombre es requerido
+                </div>
+                <div class="container-error-message" *ngIf="firstname.errors.minlength">
+                  Tu primer nombre debe ser de minimo 5 caracteres
+                </div>
+              </div>
             </div>
 
-            <div>
-                <label for="lastname">
-                  Apellido
-                </label>
-                <input id="lastname" type="text" formControlName="lastname">
+            <div class="form-row">
+                <p for="lastname" class="label">
+                  Apellido *
+                </p>
+                <input id="lastname" type="text" formControlName="lastname" class="input" placeholder="Ingresa tu primer apellido">
+
+                <div class="alert-danger" *ngIf="lastname.invalid && lastname.dirty ">
+                  <div class="container-error-message" *ngIf="lastname.errors.required">
+                    Tu primer apellido es requerido
+                  </div>
+                  <div class="container-error-message" *ngIf="lastname.errors.minlength">
+                    Tu primer apellido debe ser de minimo 5 caracteres
+                  </div>
+                </div>
             </div>
 
-            <div>
-                <label for="birthdate">
-                  Fecha de Nacimiento
-                </label>
-                <input id="birthdate" type="date" formControlName="birthdate">
+            <div class="form-row">
+                <p for="birthdate" class="label">
+                  Fecha de Nacimiento *
+                </p>
+                <input id="birthdate" type="date" formControlName="birthdate" class="input">
             </div>
           
           
             <button class="button" type="submit">Registrarme</button>
           
           </form>
-    </div>
 </div>
