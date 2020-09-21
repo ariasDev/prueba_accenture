@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MainServiceService {
-  URL_CLIENTES = 'https://testbankapi.firebaseio.com/clients.json'
+  private URL_CLIENTES = 'https://testbankapi.firebaseio.com/clients.json'
 
   constructor(private http: HttpClient) { }
 
