@@ -12,8 +12,8 @@ import { ageValidator } from '../../utils/customValidators'
 export class RegistryComponentComponent implements OnInit, OnDestroy {
 
   checkoutForm: FormGroup;
-  suscribeGet: Subscription;
-  suscribePost: Subscription;
+  private suscribeGet: Subscription;
+  private suscribePost: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,7 +28,7 @@ export class RegistryComponentComponent implements OnInit, OnDestroy {
 
   }
 
-  onSubmit(userData) {
+  public onSubmit(userData) {
     if (userData.birthdate && userData.firstname && userData.lastname && userData.identification) {
       if (this.checkoutForm.valid) {
         this.suscribeGet = this.mainService.getAllClients().subscribe(response => {
@@ -40,8 +40,8 @@ export class RegistryComponentComponent implements OnInit, OnDestroy {
           } else {
             alert('Este usuario ya se encuentra registrado')
           }
+          this.checkoutForm.reset();
         })
-        this.checkoutForm.reset();
       } else {
         alert('Algunos Datos que diligenciaste no son validos')
       }
