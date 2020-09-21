@@ -14,5 +14,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 4. Instalar las dependencias, ejecutando el comando `npm install`
 4. Ejecutar el proyecto, ejecutando el comando `ng serve -o`
 
+# Instrucciones para ejecutar las pruebas unitarias
+ejecuta el comando `ng test`
+
 
 
